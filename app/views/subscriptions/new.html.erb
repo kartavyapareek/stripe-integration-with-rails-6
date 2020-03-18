@@ -1,7 +1,56 @@
-<div class= 'row text-center'>
+<div class='row'>
   <div class='col-md-12'>
+    <div class='row text-center'>
+      <div class='col-md-12'>
+        Select Subscripion 
+      </div>
+      </br></br></br>
+    </div>
     <div class='row'>
-      Form
+      <div class='col-md-12'>
+        <% if @subscription.errors.any? %>
+          <div id="error_explanation">
+            <h2>
+              <%= pluralize(@subscription.errors.count, "error") %> prohibited
+              this subscription from being saved:
+            </h2>
+            <ul>
+              <% @subscription.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-4'></div>
+      <div class='col-md-4'>
+        <%= form_with model: @subscription, local: true do |form| %>
+          <table class="table table-borderless">
+            <tr>
+              <td><%= form.label :subscription_category %></td>
+              <td><%= form.select :subscription_category, options_for_select(SubscriptionCategory.all.map{ |c| [c.title, c.id] }) %></td>
+            </tr>
+            <tr>
+              <td>Code</td>
+              <td>SL</td>
+            </tr>
+            <tr>
+              <td>Duration</td>
+              <td>1 Month</td>
+            </tr>
+            <tr>
+              <td>Rate</td>
+              <td>500</td>
+            </tr>
+            <tr>
+              <td colspan='2' class='text-center'><%= form.submit "Pay Now" %></td>
+            </tr>
+          </table>
+        <% end %>
+      </div>
+      <div class='col-md-4'></div>
     </div>
   </div>
 </div>
