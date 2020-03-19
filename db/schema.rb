@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_200754) do
+ActiveRecord::Schema.define(version: 2020_03_19_090817) do
 
   create_table "subscription_categories", force: :cascade do |t|
     t.string "title"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2020_03_18_200754) do
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "stripe_session_id"
+    t.string "stripe_payment_id"
     t.index ["subscription_id"], name: "index_subscription_payments_on_subscription_id"
   end
 

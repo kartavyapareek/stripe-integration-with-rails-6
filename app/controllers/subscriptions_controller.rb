@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 # subscription controller
-require 'stripe'
 class SubscriptionsController < ApplicationController
+  def show
+    @subscription = Subscription.find params[:id]
+  end
+
   def new
     @subscription = Subscription.new
     @subscription_type = SubscriptionCategory.find params[:subscription_type]
@@ -25,7 +28,7 @@ class SubscriptionsController < ApplicationController
         currency: 'inr',
         quantity: 1
       }],
-      success_url: success_subscriptions_url,
+      success_url: success_subscriptions_url + "?session_id={CHECKOUT_SESSION_ID}&sub_id=#{subscription.id}",
       cancel_url: cancel_subscriptions_url
     )
     respond_to do |format|
@@ -33,7 +36,14 @@ class SubscriptionsController < ApplicationController
     end
   end
 
-  def success; end
+  def success
+    subscription = Subscription.find params[:sub_id]
+    session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    payment_intent = Stripe::PaymentIntent.retrieve(session.payment_intent)
+    payment = subscription.subscription_payment
+    payment.update_attributes(status: 'paid', stripe_session_id: session.id, stripe_payment_id: payment_intent.id)
+    subscription.update_attributes(status: 'active')
+  end
 
   def cancel; end
 

@@ -23,24 +23,25 @@
               <tr>
                 <td><%= index+1 %></td>
                 <td>
-                  <%=subscription_type.title %>
+                  <%= subscription_type.title %>
                 </td>
                 <td>
-                  <%=subscription_type.code %>
+                  <%= subscription_type.code %>
                 </td>
                 <td>
-                  <%=subscription_type.duration %>
+                  <%= subscription_type.duration %>
                 </td>
                 <td>
-                  <%=subscription_type.price %>
+                  <%= subscription_type.price %>
                 </td>
                 <td>
-                  <%= form.radio_button :subscription_type, "#{subscription_type.id}" %>
+                  <%= form.radio_button :subscription_type, "#{subscription_type.id}", id: 'radioButton', onClick: "ShowHideDiv()"%>
                 </td>
               </tr>
             <% end %>
             <tr>
-              <td colspan='6' class='text-center'><%= form.submit "Subscribe" %></td>
+              <td colspan='6' class='text-center'>
+              <%= form.submit "Subscribe", id: 'submitButton', style: "display: none"%></td>
             </tr>
           </table>
         <% end %>
@@ -49,3 +50,11 @@
     </div>
   </div>
 </div>
+
+<script>
+  function ShowHideDiv() {
+        var chkYes = document.getElementById("radioButton");
+        var submitButton = document.getElementById("submitButton");
+        submitButton.style.display = "block";
+    }
+</script>

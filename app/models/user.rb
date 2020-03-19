@@ -6,4 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :subscriptions
+
+  def active_subscription
+    subscriptions.where(status: 'active').last
+  end
 end

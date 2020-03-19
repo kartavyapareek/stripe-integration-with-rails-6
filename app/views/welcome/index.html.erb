@@ -20,7 +20,11 @@
         <a href="#">Link 2</a>
       </div>
       <div class='col-md-4'>
+      <% if current_user.active_subscription.present? %>
+        <%= link_to 'Manage Preminum', subscription_path(current_user.active_subscription.id) %>
+      <% else %>
         <%= link_to 'Go Preminum', subscription_type_list_subscriptions_path %>
+      <% end%>
       </div>
     </div>
   </div>
