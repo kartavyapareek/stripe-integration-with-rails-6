@@ -2,7 +2,7 @@
   <div class='col-md-12'>
     <div class='row text-center'>
       <div class='col-md-12'>
-        Select Subscripion 
+        Payment  
       </div>
       </br></br></br>
     </div>
@@ -24,33 +24,37 @@
       </div>
     </div>
     <div class='row'>
-      <div class='col-md-4'></div>
-      <div class='col-md-4'>
+      <div class='col-md-2'></div>
+      <div class='col-md-8'>
         <%= form_with model: @subscription, local: true do |form| %>
-          <table class="table table-borderless">
+          <table class="table text-center">
             <tr>
-              <td><%= form.label :subscription_category %></td>
-              <td><%= form.select :subscription_category, options_for_select(SubscriptionCategory.all.map{ |c| [c.title, c.id] }) %></td>
+              <th>Subscription Type</th>
+              <th>Code</th>
+              <th>Duration( in months )</th>
+              <th>Price</th>
             </tr>
+              <tr>
+                <td>
+                  <%= @subscription_type.title %>
+                </td>
+                <td>
+                  <%= @subscription_type.code %>
+                </td>
+                <td>
+                  <%= @subscription_type.duration %>
+                </td>
+                <td>
+                  <%= @subscription_type.price %>
+                </td>
+              </tr>
             <tr>
-              <td>Code</td>
-              <td>SL</td>
-            </tr>
-            <tr>
-              <td>Duration</td>
-              <td>1 Month</td>
-            </tr>
-            <tr>
-              <td>Rate</td>
-              <td>500</td>
-            </tr>
-            <tr>
-              <td colspan='2' class='text-center'><%= form.submit "Pay Now" %></td>
+              <td colspan='4' class='text-center'><%= form.submit "Pay Now" %></td>
             </tr>
           </table>
         <% end %>
       </div>
-      <div class='col-md-4'></div>
+      <div class='col-md-2'></div>
     </div>
   </div>
 </div>
