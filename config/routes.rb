@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :subscriptions do
     collection do
       get 'subscription_type_list', to: 'subscriptions#subscription_type_list'
+      get 'success', to: 'subscriptions#success'
+      get 'cancel', to: 'subscriptions#cancel'
     end
   end
 
